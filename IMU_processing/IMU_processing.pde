@@ -39,7 +39,7 @@ void setup()  {
   String portName = Serial.list()[0];
 //  println(Serial.list());
 //  println(" Connecting to -> " + Serial.list()[portIndex]);
-  myPort = new Serial(this, "/dev/ttyACM2", 115200);
+  myPort = new Serial(this, "/dev/ttyACM1", 115200);
   myPort.clear();
   myPort.bufferUntil(lf);
 } 

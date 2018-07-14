@@ -1,0 +1,14 @@
+DATA - 7 de Julho 2018
+- O tratamento que era feito para os angulos do acelerometro apresentavam valores compatíveis com a realidade, contudo eram feitas muitas contas. Foi então passado para uns tratamento mais eficiente dos valores que deixa o código mais rápido e gera o mesmo resultado. Assim para medir as inclinações Pitch e Roll era necessário entender a força com um vetor, se a inclinação pitch e roll estivesse em zero, este vetor da gravidade estaria em cima do eixo z. Portanto quando esse vetor estivesse fazendo a influencia em outros eixos era possivel descubrir qual a inclinação desse vetor em relação ao plano xy. Por exemplo se o valor no eixo z e y forem iguais significa que o vetor da gravidade está fazendo 45 graus em relação ao eixo z. Em outras palavras o plano xy ( ou a inclinação da plaquilha do MPU) esta fazendo um giro de 45 graus tendo por eixo de rotação o eixol x, esse seria o ROLL. Assim temos:
+
+Roll= arctan(y/z)  e  Pitch= arctan(x/z).
+
+(obs: Pitch e Roll são levados em conta da imagem da documentção do autobotz. A figura 2 do link https://docs.google.com/document/d/1jjXvJkvyGSxgxXAH9nCAm-O4B5rVn1uPmH12gnE2X1s/edit)
+
+DATA - 12 de julho 2018
+- Para realizar o tratamento dos dados vindo do giroscópio temos que transformar a leitura para graus por segundo dividindo por 131 ( valor tabelado no datasheet ), logo em seguida precisamor contar quantos seguod se passaram de ma medida para outra pra saber a rotação que houve nesse tempo. Essa rotação é somada com o valor da angulaçao antiga. Por exemplo eu estava com 0º em relação a um eixo e em um segundo girei o chipe a uma velocidade de 10 graus/segundos. Assim a mimha algulação final deve ser 10º. Assim medimos os algulos de roll, pitch e yaw com o giroscópio.
+  Para evitar os ruidos captados pelo acelerômetro e minimizar as flutuaçãoes do giroscopio podemos usar o filtro de kalmam, que consiste em dar peso as medidas. Por meios experimentais foi dado 0,96 para as medidas do giroscopio e 0,04 para o acelerometro.
+(obs: a angulação causada pelo eixo yaw é apenas medida pelo giroscópio ate agr)
+
+Data - 14 de julho 2018
+- O tratamento dado aos valores do magnetrommetro foi incorporado ao tratamento do angulos pelo filtro de kalmam dando assim uma maior precisão ao giro no eixo de YAW.
